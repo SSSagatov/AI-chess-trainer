@@ -14,7 +14,7 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar" aria-label="Основная навигация">
-      <a class="brand" href="index.html" aria-label="AI Chess Trainer — главная">
+      <a class="brand" href="/" aria-label="AI Chess Trainer — главная">
         <span class="brand-mark" aria-hidden="true">♞</span>
         <span class="brand-name">AI CHESS<br><strong>TRAINER</strong></span>
       </a>
@@ -35,7 +35,7 @@
     <main class="main-content" id="overview">
       <header class="topbar">
         <div class="breadcrumb">ПРОСТРАНСТВО <span>/</span> ОБЗОР</div>
-        <span class="demo-badge">ДЕМО МАКЕТ</span>
+        <span class="demo-badge">ОБЗОР ПАРТИЙ</span>
       </header>
 
       <div class="page-content">
@@ -49,9 +49,9 @@
         </section>
 
         <section class="summary-grid" aria-label="Обзор прогресса">
-          <article class="stat-card"><span class="stat-icon" aria-hidden="true">♟</span><span class="stat-label">ПАРТИЙ В АНАЛИЗЕ</span><strong class="stat-value">—</strong><span class="stat-note">Появятся после загрузки</span></article>
-          <article class="stat-card"><span class="stat-icon" aria-hidden="true">↗</span><span class="stat-label">ТЕКУЩИЙ РЕЙТИНГ</span><strong class="stat-value">—</strong><span class="stat-note">По вашим партиям</span></article>
-          <article class="stat-card"><span class="stat-icon" aria-hidden="true">✦</span><span class="stat-label">ТОЧНОСТЬ ИГРЫ</span><strong class="stat-value">—</strong><span class="stat-note">Среднее значение</span></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">♟</span><span class="stat-label">СОХРАНЕНО ПАРТИЙ</span><strong class="stat-value">{{.GameCount}}</strong><span class="stat-note">В вашей истории</span></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">↗</span><span class="stat-label">ПОСЛЕДНИЙ РЕЙТИНГ</span><strong class="stat-value">{{.Rating}}</strong><span class="stat-note">По последней партии</span></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">✦</span><span class="stat-label">ТОЧНОСТЬ ИГРЫ</span><strong class="stat-value">{{.Accuracy}}</strong><span class="stat-note">Среднее по вашим партиям</span></article>
         </section>
 
         <div class="content-grid">
@@ -69,9 +69,13 @@
             </section>
 
             <section class="panel games-panel" id="games" aria-labelledby="games-title">
-              <div class="panel-heading"><div><p class="eyebrow">ИСТОРИЯ</p><h2 id="games-title">Мои партии</h2></div><span class="count-pill">0 партий</span></div>
-              <div class="games-toolbar"><span>Все сохранённые партии</span><span class="sort-label">Сначала новые <span aria-hidden="true">⌄</span></span></div>
+              <div class="panel-heading"><div><p class="eyebrow">ИСТОРИЯ</p><h2 id="games-title">Мои партии</h2></div><span class="count-pill">{{.GameCount}} партий</span></div>
+              <form class="games-toolbar" action="/" method="get"><span>Все сохранённые партии</span><div class="sort-controls"><label class="sr-only" for="sort-by">Сортировать по</label><select id="sort-by" name="sort_by"><option value="played_at" {{if eq .SortBy "played_at"}}selected{{end}}>Дата</option><option value="white_rating" {{if eq .SortBy "white_rating"}}selected{{end}}>Рейтинг белых</option><option value="black_rating" {{if eq .SortBy "black_rating"}}selected{{end}}>Рейтинг чёрных</option><option value="white_accuracy" {{if eq .SortBy "white_accuracy"}}selected{{end}}>Точность белых</option><option value="black_accuracy" {{if eq .SortBy "black_accuracy"}}selected{{end}}>Точность чёрных</option></select><label class="sr-only" for="sort-order">Порядок</label><select id="sort-order" name="sort_order"><option value="desc" {{if eq .SortOrder "desc"}}selected{{end}}>По убыванию</option><option value="asc" {{if eq .SortOrder "asc"}}selected{{end}}>По возрастанию</option></select><button type="submit">Применить</button></div></form>
+              {{if .Games}}
+              <div class="game-list">{{range .Games}}<a class="game-row" href="/api/games/{{.ID}}"><span class="game-piece" aria-hidden="true">♞</span><span class="game-info"><strong>{{gameLabel .WhiteUsername .BlackUsername}}</strong><small>{{formatDate .PlayedAt}} · {{.Result}}</small></span><span class="game-ratings">{{.WhiteRating}} / {{.BlackRating}}</span><span aria-hidden="true">→</span></a>{{end}}</div>
+              {{else}}
               <div class="empty-state"><div class="empty-icon" aria-hidden="true">♔</div><h3>Пока нет партий</h3><p>Добавьте первую партию, чтобы начать собирать историю игр и следить за прогрессом.</p><a href="#add-game">Перейти к загрузке <span aria-hidden="true">→</span></a></div>
+              {{end}}
             </section>
           </div>
 

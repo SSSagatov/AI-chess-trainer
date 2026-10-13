@@ -37,8 +37,10 @@ func NewRepository(pool *pgxpool.Pool) (*Repository, error) {
 	return &Repository{pool: pool}, nil
 }
 
-const gameColumns = `id, pgn, white_username, black_username, played_at,
-    white_rating, white_accuracy, black_rating, black_accuracy, player_color, result, fen`
+const gameColumns = `
+	id, pgn, white_username, black_username, played_at,
+    white_rating, white_accuracy, black_rating, black_accuracy, 
+	player_color, result, fen`
 
 // SaveGame inserts a game.
 // On success it sets game.ID to the stored row's ID.
