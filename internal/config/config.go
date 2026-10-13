@@ -20,17 +20,21 @@ type DBConfig struct {
 
 type ChessComConfig struct {
 	GameURL     string
-	PGN         string
+	CopyPGN     OriginalPGN
 	WhiteRating uint16
 	BlackRating uint16
 	Rating      uint16
 }
 
-func (ccm *ChessComConfig) NewChessComConfig(gameURL, pgn string, whiteRating, blackRating uint16) (*ChessComConfig, error) {
+type OriginalPGN struct {
+	PGN string
+}
+
+func NewChessComConfig(gameURL string, pgn OriginalPGN, whiteRating, blackRating uint16) (*ChessComConfig, error) {
 	if gameURL == "" {
 		return nil, fmt.Errorf("game URL is required")
 	}
-	if pgn == "" {
+	if pgn.PGN == "" {
 		return nil, fmt.Errorf("PGN is required")
 	}
 	if whiteRating == 0 || blackRating == 0 {
@@ -39,7 +43,7 @@ func (ccm *ChessComConfig) NewChessComConfig(gameURL, pgn string, whiteRating, b
 
 	return &ChessComConfig{
 		GameURL:     gameURL,
-		PGN:         pgn,
+		CopyPGN:     pgn,
 		WhiteRating: whiteRating,
 		BlackRating: blackRating,
 		// TODO: replace the average with rating-level classification.
@@ -47,7 +51,7 @@ func (ccm *ChessComConfig) NewChessComConfig(gameURL, pgn string, whiteRating, b
 	}, nil
 }
 
-func (cfg *DBConfig) NewDBConfig() (*DBConfig, error) {
+func NewDBConfig() (*DBConfig, error) {
 	if err := godotenv.Load(); err != nil && !errors.Is(err, os.ErrNotExist) {
 		return nil, fmt.Errorf("load .env: %w", err)
 	}

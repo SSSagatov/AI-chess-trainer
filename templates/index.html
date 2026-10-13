@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b20">
+  <meta name="description" content="AI Chess Trainer — обзор партий и основа для анализа шахматной игры.">
+  <title>Обзор — AI Chess Trainer</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages/dashboard.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Основная навигация">
+      <a class="brand" href="index.html" aria-label="AI Chess Trainer — главная">
+        <span class="brand-mark" aria-hidden="true">♞</span>
+        <span class="brand-name">AI CHESS<br><strong>TRAINER</strong></span>
+      </a>
+
+      <div class="sidebar-section-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+      <nav class="sidebar-nav" aria-label="Разделы">
+        <a class="nav-link is-active" href="#overview" aria-current="page"><span aria-hidden="true">▦</span> Обзор</a>
+        <a class="nav-link" href="#games"><span aria-hidden="true">♟</span> Мои партии</a>
+        <a class="nav-link" href="#analysis"><span aria-hidden="true">◫</span> Анализ</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip"><span class="sidebar-tip-icon" aria-hidden="true">✦</span><p>Каждая партия — возможность найти более сильный ход.</p></div>
+        <div class="sidebar-profile"><span class="avatar" aria-hidden="true">И</span><span><strong>Игрок</strong><small>Ваше пространство</small></span></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div class="breadcrumb">ПРОСТРАНСТВО <span>/</span> ОБЗОР</div>
+        <span class="demo-badge">ДЕМО МАКЕТ</span>
+      </header>
+
+      <div class="page-content">
+        <section class="welcome" aria-labelledby="welcome-title">
+          <div>
+            <p class="eyebrow"><span class="status-dot"></span> ВАШ ШАХМАТНЫЙ ПРОГРЕСС</p>
+            <h1 id="welcome-title">Играйте осознанно.<br><em>Растите с каждой партией.</em></h1>
+            <p class="welcome-copy">Загрузите партию с Chess.com, чтобы позже увидеть ключевые моменты, ошибки и возможности для улучшения.</p>
+          </div>
+          <a class="button button-primary" href="#add-game">Добавить партию <span aria-hidden="true">↗</span></a>
+        </section>
+
+        <section class="summary-grid" aria-label="Обзор прогресса">
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">♟</span><span class="stat-label">ПАРТИЙ В АНАЛИЗЕ</span><strong class="stat-value">—</strong><span class="stat-note">Появятся после загрузки</span></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">↗</span><span class="stat-label">ТЕКУЩИЙ РЕЙТИНГ</span><strong class="stat-value">—</strong><span class="stat-note">По вашим партиям</span></article>
+          <article class="stat-card"><span class="stat-icon" aria-hidden="true">✦</span><span class="stat-label">ТОЧНОСТЬ ИГРЫ</span><strong class="stat-value">—</strong><span class="stat-note">Среднее значение</span></article>
+        </section>
+
+        <div class="content-grid">
+          <div class="content-main">
+            <section class="panel import-panel" id="add-game" aria-labelledby="import-title">
+              <div class="panel-heading"><div><p class="eyebrow">НАЧНИТЕ ЗДЕСЬ</p><h2 id="import-title">Добавить новую партию</h2></div><span class="panel-symbol" aria-hidden="true">↗</span></div>
+              <p class="muted">Вставьте ссылку на сыгранную партию с Chess.com. После подключения API здесь будет запускаться загрузка и анализ.</p>
+              <div class="url-form" role="group" aria-label="Ссылка на партию">
+                <label class="sr-only" for="game-url">Ссылка на партию Chess.com</label>
+                <span class="input-icon" aria-hidden="true">⌁</span>
+                <input id="game-url" type="url" placeholder="https://www.chess.com/game/live/..." autocomplete="url">
+                <button class="button button-dark" type="button" disabled title="Будет доступно после подключения API">Загрузить <span aria-hidden="true">→</span></button>
+              </div>
+              <p class="form-note">Загрузка станет доступна после подключения обработчика Chess.com.</p>
+            </section>
+
+            <section class="panel games-panel" id="games" aria-labelledby="games-title">
+              <div class="panel-heading"><div><p class="eyebrow">ИСТОРИЯ</p><h2 id="games-title">Мои партии</h2></div><span class="count-pill">0 партий</span></div>
+              <div class="games-toolbar"><span>Все сохранённые партии</span><span class="sort-label">Сначала новые <span aria-hidden="true">⌄</span></span></div>
+              <div class="empty-state"><div class="empty-icon" aria-hidden="true">♔</div><h3>Пока нет партий</h3><p>Добавьте первую партию, чтобы начать собирать историю игр и следить за прогрессом.</p><a href="#add-game">Перейти к загрузке <span aria-hidden="true">→</span></a></div>
+            </section>
+          </div>
+
+          <aside class="content-aside" id="analysis" aria-label="Предпросмотр анализа">
+            <section class="panel analysis-panel"><div class="panel-heading"><div><p class="eyebrow">АНАЛИЗ ПАРТИИ</p><h2>Шахматная доска</h2></div><span class="preview-label">ПРЕВЬЮ</span></div>
+              <div class="chessboard" role="img" aria-label="Начальная расстановка фигур на шахматной доске">
+                <span class="square dark">♜</span><span class="square light">♞</span><span class="square dark">♝</span><span class="square light">♛</span><span class="square dark">♚</span><span class="square light">♝</span><span class="square dark">♞</span><span class="square light">♜</span>
+                <span class="square light">♟</span><span class="square dark">♟</span><span class="square light">♟</span><span class="square dark">♟</span><span class="square light">♟</span><span class="square dark">♟</span><span class="square light">♟</span><span class="square dark">♟</span>
+                <span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span>
+                <span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span>
+                <span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span>
+                <span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span><span class="square light"></span><span class="square dark"></span>
+                <span class="square dark white-piece">♙</span><span class="square light white-piece">♙</span><span class="square dark white-piece">♙</span><span class="square light white-piece">♙</span><span class="square dark white-piece">♙</span><span class="square light white-piece">♙</span><span class="square dark white-piece">♙</span><span class="square light white-piece">♙</span>
+                <span class="square light white-piece">♖</span><span class="square dark white-piece">♘</span><span class="square light white-piece">♗</span><span class="square dark white-piece">♕</span><span class="square light white-piece">♔</span><span class="square dark white-piece">♗</span><span class="square light white-piece">♘</span><span class="square dark white-piece">♖</span>
+              </div>
+              <div class="board-footer"><span>НАЧАЛЬНАЯ ПОЗИЦИЯ</span><span>Ход белых</span></div>
+            </section>
+            <section class="insight-card"><span class="insight-icon" aria-hidden="true">✧</span><div><h3>Следующий сильный ход</h3><p>После анализа здесь появятся подсказки и разбор важных моментов партии.</p></div></section>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
